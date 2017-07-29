@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "declaration": true,
     "emitDecoratorMetadata": true,
