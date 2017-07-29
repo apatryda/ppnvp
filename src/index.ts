@@ -161,21 +161,3 @@ export default class PpNvp {
   }
 
 }
-
-const nvp = new PpNvp({
-  user: 'kontakt_api1.ajwserwis.pl',
-  password: '2ABPZWXRCJ6HFNXY',
-  signature: 'Adnj6Dgi--0rqvIOX-OYpXvO6bj-AnTWbUA6XDsLw1f5wGrxy56IIKph',
-});
-
-// nvp.getBalance({
-//   RETURNALLCURRENCIES: 1,
-// }).then(console.log);
-
-nvp.getTransactionDetails({
-  TRANSACTIONID: '6D330934C12720130',
-}).then(console.log);
-
-// nvp.transactionSearch({
-//   STARTDATE: '2017-07-29T00:00:00Z',
-// }).then(console.log);
