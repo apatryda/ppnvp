@@ -57,5 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
-# Compiled files
-dist/
+# Source files
+src/
+
+.editorconfig
+.gitignore
+tsconfig.json
