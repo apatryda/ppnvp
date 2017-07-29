@@ -113,7 +113,7 @@ export default class PpNvp {
     return PpNvp.pickErrors(parsedResult);
   }
 
-  async getBalance(options) {
+  async getBalance(options?) {
     const method = 'GetBalance';
     const rawResult = await this.call(method, options);
 
@@ -134,12 +134,12 @@ export default class PpNvp {
     );
   }
 
-  async getTransactionDetails(options) {
+  async getTransactionDetails(options?) {
     const method = 'GetTransactionDetails';
     return await this.call(method, options);
   }
 
-  async transactionSearch(options) {
+  async transactionSearch(options?) {
     const method = 'TransactionSearch';
     const rawResult = await this.call(method, options);
 
