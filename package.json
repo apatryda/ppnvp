@@ -1,0 +1,27 @@
+{
+  "name": "ppnvp",
+  "version": "0.0.0",
+  "description": "Node.js interface to PayPal NVP API",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apatryda/ppnvp.git"
+  },
+  "keywords": [
+    "node.js",
+    "paypal"
+  ],
+  "author": "Artur Nerkowski <a.apatryda@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apatryda/ppnvp/issues"
+  },
+  "homepage": "https://github.com/apatryda/ppnvp#readme",
+  "devDependencies": {
+    "typescript": "^2.4.2"
+  }
+}
