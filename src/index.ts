@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import * as got from 'got';
 import * as qs from 'query-string';
 
-
 const LIVE_API_URL = 'https://api-3t.paypal.com/nvp';
 const COMMON_RESPONSE_FIELDS = [
   'ACK',
@@ -49,8 +48,34 @@ const RESPONSE_MESSAGE_FIELDS = {
 
 const listFieldMatcher = /^L_([A-Z]+)([0-9]+)$/;
 
-export default class PpNvp {
+export interface PpNvpMap {
+  [key: string]: string;
+}
+export interface PpNvpResponse extends PpNvpMap {
+}
 
+export interface PpNvpError {
+  ERRORCODE: string;
+  SHORTMESSAGE: string;
+  LONGMESSAGE: string;
+  SEVERITYCODE: string;
+  ERRORPARAMID: string;
+  ERRORPARAMVALUE: string;
+}
+
+export type PpNvpResponseWithErrorrs = PpNvpResponse & {
+  ERRORS?: PpNvpError[];
+};
+
+export type PpNvpGetBalanceResponse = PpNvpResponseWithErrorrs & {
+  BALANCES?: PpNvpMap[];
+};
+
+export type PpNvpTransactionSearchResponse = PpNvpResponseWithErrorrs & {
+  TRANSACTIONS?: PpNvpMap[];
+};
+
+export default class PpNvp {
   private user: string;
   private password: string;
   private signature: string;
@@ -65,7 +90,7 @@ export default class PpNvp {
     this.signature = signature;
   }
 
-  static matchListField(fieldName: string) {
+  static matchListField(fieldName: string): [string, number] {
     const match = listFieldMatcher.exec(fieldName);
 
     if (match) {
@@ -76,7 +101,7 @@ export default class PpNvp {
     return [fieldName, -1];
   }
 
-  static pickErrors(response) {
+  static pickErrors(response: PpNvpResponse): PpNvpResponseWithErrorrs {
     return _.reduce(
       response,
       (result, value, name) => {
@@ -94,7 +119,7 @@ export default class PpNvp {
     );
   }
 
-  async call(method, options = {}) {
+  async call(method: string, options: PpNvpMap = {}): Promise<PpNvpResponse> {
     const body = Object.assign({}, options, {
       USER: this.user,
       PWD: this.password,
@@ -113,7 +138,7 @@ export default class PpNvp {
     return PpNvp.pickErrors(parsedResult);
   }
 
-  async getBalance(options?) {
+  async getBalance(options?: PpNvpMap): Promise<PpNvpGetBalanceResponse> {
     const method = 'GetBalance';
     const rawResult = await this.call(method, options);
 
@@ -134,12 +159,12 @@ export default class PpNvp {
     );
   }
 
-  async getTransactionDetails(options?) {
+  async getTransactionDetails(options?: PpNvpMap): Promise<PpNvpResponseWithErrorrs> {
     const method = 'GetTransactionDetails';
     return await this.call(method, options);
   }
 
-  async transactionSearch(options?) {
+  async transactionSearch(options?: PpNvpMap): Promise<PpNvpTransactionSearchResponse> {
     const method = 'TransactionSearch';
     const rawResult = await this.call(method, options);
 
