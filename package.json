@@ -1,6 +1,6 @@
 {
   "name": "ppnvp",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Node.js interface to PayPal NVP API",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/apatryda/ppnvp#readme",
   "devDependencies": {
-    "@types/got": "^7.1.0",
     "@types/lodash": "^4.14.71",
     "@types/query-string": "^5.0.0",
     "typescript": "^2.4.2"
   },
   "dependencies": {
-    "got": "^7.1.0",
+    "axios": "^0.19.0",
     "lodash": "^4.17.4",
     "query-string": "^5.0.0"
-  }
+  },
+  "optionalDependencies": {}
 }

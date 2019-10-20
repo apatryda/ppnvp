@@ -1,5 +1,5 @@
+import axios from 'axios';
 import * as _ from 'lodash';
-import * as got from 'got';
 import * as qs from 'query-string';
 
 const LIVE_API_URL = 'https://api-3t.paypal.com/nvp';
@@ -128,12 +128,11 @@ export default class PpNvp {
       VERSION: METHOD_VERSIONS[method],
     });
 
-    const queryResult = await got.post(LIVE_API_URL, {
-      body,
-      form: true,
-    });
+    const queryResult = await axios.post(LIVE_API_URL, qs.stringify(body), {
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    })
 
-    const parsedResult = qs.parse(queryResult.body);
+    const parsedResult = qs.parse(queryResult.data);
 
     return PpNvp.pickErrors(parsedResult);
   }
